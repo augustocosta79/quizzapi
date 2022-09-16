@@ -1,14 +1,22 @@
 import { Router } from 'express'
+import { Quizz } from '../controllers/quizz'
+
 
 export const quizzRouter = Router()
 
 
-// BUSCAR TODAS AS CATEGORIAS /all
-quizzRouter.get('/all', )
+// GET ALL QUESTIONS FROM QUIZZ /all
+quizzRouter.get('/all', Quizz.getQuestions)
 
 
-// BUSCAR CATEGORIAS ESPECÍFICAS /:category
-quizzRouter.get('/:category', )
+// GET QUIZZ QUESTIONS FROM SPECIFIC CATEGORY /:category
+quizzRouter.get('/:category', Quizz.getQuestions)
 
-// INSERE NOVAS PERGUNTAS NO QUIZZ
-quizzRouter.post('/newquestion', )
+// CREATE NEW QUIZZ QUESTION
+quizzRouter.post('/newquestion', Quizz.createQuestion)
+
+//DELETE QUESTION
+quizzRouter.delete('/question', Quizz.deteleQuestion)
+
+// UPDATE QUESTION
+quizzRouter.patch('/update', Quizz.updateQuestion)
