@@ -37,6 +37,11 @@ export class Quizz {
 
         const { question, category, answers } = req.body
 
+        if (!answers) {
+            res.status(400).json({ error: 'Please provide the answers to your question'})
+            return
+        }
+
         const newQuestion = new quizzModel({
             question: question,
             category: category,
@@ -45,9 +50,9 @@ export class Quizz {
     
         try {
             const created = await newQuestion.save()
-            res.json(created)
+            res.status(201).json(created)
         } catch (error) {
-            res.json({ message: 'unable to create question' })
+            res.status(400).json({ message: 'unable to create question' })
         }
     }
 
@@ -55,7 +60,7 @@ export class Quizz {
     static async deteleQuestion(req: Request, res: Response) {
         try {
             await res.locals.question.remove()
-            res.json({ message: 'Question successfully removed!'})
+            res.status(204).json({ message: 'Question successfully removed!'})
         } catch (error) {
             res.status(404).json({ message: 'Could not find and delete the question' })
         }
@@ -67,7 +72,7 @@ export class Quizz {
         try {
             res.locals.question.category = category
             await res.locals.question.save()
-            res.json(res.locals.question)
+            res.status(200).json(res.locals.question)
         } catch (error) {
             res.status(404).json({ message: 'Could not update the question' })
         }
