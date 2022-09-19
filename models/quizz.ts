@@ -12,6 +12,10 @@ export interface iQuestion extends Document {
     ]
 }
 
+const answer = new mongoose.Schema({
+    text: {type: String, required: true},
+    correct: {type: Boolean, required: true},
+})
 
 export const quizzSchema = new mongoose.Schema<iQuestion>({
     question: {
@@ -20,31 +24,14 @@ export const quizzSchema = new mongoose.Schema<iQuestion>({
     },
 
     category: {
+        required: true,
         type: String,
-        required: true
     },
 
-    answers: [
-        {
-            text: {type: String, required: true},
-            correct: { type: Boolean, required: true}
-        },
-
-        {
-            text: {type: String, required: true},
-            correct: { type: Boolean, required: true}
-        },
-
-        {
-            text: {type: String, required: true},
-            correct: { type: Boolean, required: true}
-        },
-
-        {
-            text: {type: String, required: true},
-            correct: { type: Boolean, required: true}
-        },
-    ]
+    answers: {
+        required: true,
+        type: [answer, answer, answer, answer]
+    }
 })
 
 export const quizzModel = mongoose.model<iQuestion>('Question', quizzSchema)
