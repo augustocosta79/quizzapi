@@ -8,10 +8,12 @@ export class Quizz {
     static async getQuestions(req: Request, res: Response) {
 
         const category = req.params.category ? { category: req.params.category } : {}
+        const limit = req.query.limit ? +req.query.limit : 0
+        
 
         try {
-            const quizzCat = await quizzModel.find(category)
-            res.json(quizzCat)
+            const quizzByCategory = await quizzModel.find(category).limit(limit)
+            res.status(200).json(quizzByCategory)
         } catch (error) {
             res.status(404).json({ message: `No questions found` })
         }
