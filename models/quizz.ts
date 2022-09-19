@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { Document } from 'mongoose'
 
-export interface iQuestion {
+export interface iQuestion extends Document {
     question: string,
     category: string,
     answers: [
@@ -11,7 +12,8 @@ export interface iQuestion {
     ]
 }
 
-export const quizzSchema = new mongoose.Schema({
+
+export const quizzSchema = new mongoose.Schema<iQuestion>({
     question: {
         type: String,
         required: true
@@ -45,4 +47,4 @@ export const quizzSchema = new mongoose.Schema({
     ]
 })
 
-export const quizzModel = mongoose.model('Question', quizzSchema)
+export const quizzModel = mongoose.model<iQuestion>('Question', quizzSchema)
