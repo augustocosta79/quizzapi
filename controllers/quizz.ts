@@ -1,4 +1,3 @@
-import { json } from 'body-parser'
 import { Request, Response, NextFunction } from 'express'
 import { quizzModel } from '../models/quizz'
 import { iQuestion } from '../models/quizz'
@@ -44,10 +43,6 @@ export class Quizz {
 
         const { question, category, answers } = req.body
 
-        if (!answers) {
-            return res.status(400).json({ error: 'Please provide all necessary data'}) 
-        }
-
         const newQuestion = new quizzModel({
             question: question,
             category: category,
@@ -90,6 +85,16 @@ export class Quizz {
         } 
         catch (error: any) {
             res.status(404).json({ message: error.message })
+        }
+    }
+
+    static async getCategories(req: Request, res: Response) {
+        try {
+            const quizzCategories = await quizzModel.distinct('category')
+            res.status(200).json(quizzCategories)
+        }
+        catch (error) {
+            res.status(404).json({ message: `No categories found` })
         }
     }
 
