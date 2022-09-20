@@ -3,6 +3,9 @@ import { Quizz } from '../controllers/quizz'
 
 export const quizzRouter = Router()
 
+//GET AVAILABLE CATEGORIES
+quizzRouter.get('/categories', Quizz.getCategories)
+
 
 // GET ALL QUESTIONS FROM QUIZZ /all
 quizzRouter.get('/questions', Quizz.getQuestions)
@@ -18,3 +21,4 @@ quizzRouter.delete('/delete/:id', Quizz.getQuestionById, Quizz.deteleQuestion)
 
 // UPDATE QUESTION
 quizzRouter.patch('/update/:id', Quizz.getQuestionById, Quizz.updateQuestion)
+
