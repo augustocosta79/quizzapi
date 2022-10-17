@@ -10,11 +10,11 @@ quizzRouter.get('/categories', Quizz.getCategories)
 // GET ALL QUESTIONS FROM QUIZZ /all
 quizzRouter.get('/questions', Quizz.getQuestions)
 
-// GET QUIZZ QUESTIONS FROM SPECIFIC CATEGORY /:category
-quizzRouter.get('/:category', Quizz.getQuestions)
-
 // CREATE NEW QUIZZ QUESTION
 quizzRouter.post('/create', Quizz.createQuestion)
+
+// GET QUIZZ QUESTIONS FROM SPECIFIC CATEGORY /:category
+quizzRouter.get('/categories/:category', Quizz.getQuestions)
 
 //DELETE QUESTION
 quizzRouter.delete('/delete/:id', Quizz.getQuestionById, Quizz.deteleQuestion)
